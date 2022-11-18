@@ -2,10 +2,14 @@ package com.example.app_biblioteca;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -32,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try  {
-                    String nombreUsuario = ((EditText) findViewById(R.id.nombreUsuarioMain)).getText().toString();
+                    String usuario = ((EditText) findViewById(R.id.usuarioMain)).getText().toString();
                     String contrasena = ((EditText) findViewById(R.id.contrasenaMain)).getText().toString();
 
-                    String query = String.format("?nombreUsuario=%s&contrasena=%s",
-                            URLEncoder.encode(nombreUsuario, charset),
+                    String query = String.format("?usuario=%s&contrasena=%s",
+                            URLEncoder.encode(usuario, charset),
                             URLEncoder.encode(contrasena, charset));
 
                     URL url = new URL(String.format("http://172.16.52.25/servidor_biblioteca/iniciarSesion.php/%s", query));
@@ -49,7 +53,28 @@ public class MainActivity extends AppCompatActivity {
 
                     String line;
                     while ((line = rd.readLine()) != null) {
-                        Log.i("data", line);
+                        Log.i("Data", line);
+                        JSONObject jsonValue = new JSONObject(line);
+                        String nombre = jsonValue.getString("nombre");
+
+                        if (line.equalsIgnoreCase("false")) {
+                            MainActivity.this.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast toast = Toast.makeText(MainActivity.this, "Error al intentar iniciar sesión", Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+                            });
+                        } else {
+                            MainActivity.this.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast toast = Toast.makeText(MainActivity.this, "¡Inicio de sesión exitoso!", Toast.LENGTH_LONG);
+                                    toast.show();
+                                    Intent intent = new Intent(MainActivity.this, BienvenidaActivity.class);
+                                    intent.putExtra("nombre", nombre);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
                     }
                 } catch (Exception e) {
                     Log.d("Error on sign up", "Ocurrió un error al intentar iniciar sesión.");
