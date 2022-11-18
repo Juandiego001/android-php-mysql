@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                             URLEncoder.encode(nombreUsuario, charset),
                             URLEncoder.encode(contrasena, charset));
 
-                    URL url = new URL(String.format("http://192.168.56.1/servidor_biblioteca/iniciarSesion.php/%s", query));
+                    URL url = new URL(String.format("http://172.16.52.25/servidor_biblioteca/iniciarSesion.php/%s", query));
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");
                     urlConnection.setRequestProperty("Accept-Charset", charset);
