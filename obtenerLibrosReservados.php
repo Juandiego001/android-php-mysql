@@ -2,18 +2,67 @@
     include 'conexion.php';
 
     $usuario = $_GET["usuario"];
-    $sentencia = $conexion -> prepare("(SELECT * FROM escobar_libros_cientificos WHERE id_libro = (SELECT id_libro FROM escobar_libros_reservados WHERE usuario = ?) AND (SELECT categoria FROM escobar_libros_reservados WHERE usuario = ?) = 3) UNION (SELECT * FROM escobar_libros_colecciones WHERE id_libro = (SELECT id_libro FROM escobar_libros_reservados WHERE usuario = ?) AND (SELECT categoria FROM escobar_libros_reservados WHERE usuario = ?) = 5) UNION (SELECT * FROM escobar_libros_ebook WHERE id_libro = (SELECT id_libro FROM escobar_libros_reservados WHERE usuario = ?) AND (SELECT categoria FROM escobar_libros_reservados WHERE usuario = ?) = 6) UNION (SELECT * FROM escobar_libros_infantiles WHERE id_libro = (SELECT id_libro FROM escobar_libros_reservados WHERE usuario = ?) AND (SELECT categoria FROM escobar_libros_reservados WHERE usuario = ?) = 1) UNION (SELECT * FROM escobar_libros_literatura WHERE id_libro = (SELECT id_libro FROM escobar_libros_reservados WHERE usuario = ?) AND (SELECT categoria FROM escobar_libros_reservados WHERE usuario = ?) = 4) UNION (SELECT * FROM escobar_libros_superacion_personal WHERE id_libro = (SELECT id_libro FROM escobar_libros_reservados WHERE usuario = ?) AND (SELECT categoria FROM escobar_libros_reservados WHERE usuario = ?) = 2)");
-    $sentencia -> bind_param('ssssssssssss', $usuario, $usuario, $usuario, $usuario, $usuario, $usuario, $usuario, $usuario, $usuario, $usuario, $usuario, $usuario);
-    $sentencia -> execute();
     
     header("Content-Type: application/json");
-    $resultado = $sentencia -> get_result();
-    $contador = 0;
     $arreglo_json = array();
+
+    $sentencia = $conexion -> prepare("SELECT ell.nombre, ell.autor, ell.resumen FROM escobar_libros_reservados AS elr JOIN escobar_libros_infantiles AS ell ON elr.id_libro = ell.id_libro WHERE elr.categoria = 1 AND elr.usuario = ?");
+    $sentencia -> bind_param('s', $usuario);
+    $sentencia -> execute();
+    $resultado = $sentencia -> get_result();
     if ($resultado != null) {
         while($row = $resultado -> fetch_assoc()) {
             array_push($arreglo_json, $row);
-            $contador = $contador + 1;
+        }    
+    }
+
+    $sentencia = $conexion -> prepare("SELECT ell.nombre, ell.autor, ell.resumen FROM escobar_libros_reservados AS elr JOIN escobar_libros_superacion_personal AS ell ON elr.id_libro = ell.id_libro WHERE elr.categoria = 2 AND elr.usuario = ?");
+    $sentencia -> bind_param('s', $usuario);
+    $sentencia -> execute();
+    $resultado = $sentencia -> get_result();
+    if ($resultado != null) {
+        while($row = $resultado -> fetch_assoc()) {
+            array_push($arreglo_json, $row);
+        }    
+    }
+
+    $sentencia = $conexion -> prepare("SELECT ell.nombre, ell.autor, ell.resumen FROM escobar_libros_reservados AS elr JOIN escobar_libros_cientificos AS ell ON elr.id_libro = ell.id_libro WHERE elr.categoria = 3 AND elr.usuario = ?");
+    $sentencia -> bind_param('s', $usuario);
+    $sentencia -> execute();
+    $resultado = $sentencia -> get_result();
+    if ($resultado != null) {
+        while($row = $resultado -> fetch_assoc()) {
+            array_push($arreglo_json, $row);
+        }    
+    }
+
+    $sentencia = $conexion -> prepare("SELECT ell.nombre, ell.autor, ell.resumen FROM escobar_libros_reservados AS elr JOIN escobar_libros_literatura AS ell ON elr.id_libro = ell.id_libro WHERE elr.categoria = 4 AND elr.usuario = ?");
+    $sentencia -> bind_param('s', $usuario);
+    $sentencia -> execute();
+    $resultado = $sentencia -> get_result();
+    if ($resultado != null) {
+        while($row = $resultado -> fetch_assoc()) {
+            array_push($arreglo_json, $row);
+        }    
+    }
+
+    $sentencia = $conexion -> prepare("SELECT ell.nombre, ell.autor, ell.resumen FROM escobar_libros_reservados AS elr JOIN escobar_libros_colecciones AS ell ON elr.id_libro = ell.id_libro WHERE elr.categoria = 5 AND elr.usuario = ?");
+    $sentencia -> bind_param('s', $usuario);
+    $sentencia -> execute();
+    $resultado = $sentencia -> get_result();
+    if ($resultado != null) {
+        while($row = $resultado -> fetch_assoc()) {
+            array_push($arreglo_json, $row);
+        }    
+    }
+
+    $sentencia = $conexion -> prepare("SELECT ell.nombre, ell.autor, ell.resumen FROM escobar_libros_reservados AS elr JOIN escobar_libros_ebook AS ell ON elr.id_libro = ell.id_libro WHERE elr.categoria = 6 AND elr.usuario = ?");
+    $sentencia -> bind_param('s', $usuario);
+    $sentencia -> execute();
+    $resultado = $sentencia -> get_result();
+    if ($resultado != null) {
+        while($row = $resultado -> fetch_assoc()) {
+            array_push($arreglo_json, $row);
         }    
     }
     
@@ -23,7 +72,6 @@
         "data" => $arreglo_json
         )
     );
-
 
     $sentencia -> close();
     $conexion -> close();
