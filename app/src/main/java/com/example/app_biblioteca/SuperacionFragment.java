@@ -23,6 +23,7 @@ import java.net.URLEncoder;
 public class SuperacionFragment extends Fragment {
 
     public String charset = "UTF-8";
+    String ip;
     public LinearLayout theLayout;
 
     @Override
@@ -32,6 +33,7 @@ public class SuperacionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_superacion, container, false);
         // Inflate the layout for this fragment
         theLayout = view.findViewById(R.id.linearFSuperacion);
+        ip = getResources().getString(R.string.the_ip);
         getLibrosSuperacion();
         return view;
     }
@@ -48,7 +50,7 @@ public class SuperacionFragment extends Fragment {
                     String query = String.format("?tipo=%s",
                             URLEncoder.encode(tipo, charset));
 
-                    URL url = new URL(String.format("http://172.16.52.25/servidor_biblioteca/obtenerLibros.php/%s", query));
+                    URL url = new URL(String.format("http://%s/servidor_biblioteca/obtenerLibros.php/%s", ip, query));
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");
                     urlConnection.setRequestProperty("Accept-Charset", charset);

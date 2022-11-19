@@ -24,6 +24,7 @@ public class CientificosFragment extends Fragment {
 
     public String charset = "UTF-8";
     public LinearLayout theLayout;
+    public String ip;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +33,7 @@ public class CientificosFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cientificos, container, false);
         // Inflate the layout for this fragment
         theLayout = view.findViewById(R.id.linearFCientificos);
+        ip = getResources().getString(R.string.the_ip);
         getLibros();
         return view;
     }
@@ -48,7 +50,7 @@ public class CientificosFragment extends Fragment {
                     String query = String.format("?tipo=%s",
                             URLEncoder.encode(tipo, charset));
 
-                    URL url = new URL(String.format("http://172.16.52.25/servidor_biblioteca/obtenerLibros.php/%s", query));
+                    URL url = new URL(String.format("http://%s/servidor_biblioteca/obtenerLibros.php/%s", ip, query));
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");
                     urlConnection.setRequestProperty("Accept-Charset", charset);

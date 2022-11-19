@@ -19,10 +19,12 @@ import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity {
     String charset = "UTF-8";
+    String ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ip = getResources().getString(R.string.the_ip);
         setContentView(R.layout.activity_main);
     }
 
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                             URLEncoder.encode(usuario, charset),
                             URLEncoder.encode(contrasena, charset));
 
-                    URL url = new URL(String.format("http://172.16.52.25/servidor_biblioteca/iniciarSesion.php/%s", query));
+                    URL url = new URL(String.format("http://%s/servidor_biblioteca/iniciarSesion.php/%s", ip, query));
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");
                     urlConnection.setRequestProperty("Accept-Charset", charset);
