@@ -26,9 +26,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    /*
     public void registrarse () {
 
     }
+    */
 
     public void iniciarSesion (View v) {
         Thread thread = new Thread(new Runnable() {
@@ -69,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
                                 public void run() {
                                     Toast toast = Toast.makeText(MainActivity.this, "¡Inicio de sesión exitoso!", Toast.LENGTH_LONG);
                                     toast.show();
-                                    Intent intent = new Intent(MainActivity.this, BienvenidaActivity.class);
+                                    Intent intent = new Intent(MainActivity.this, MenuSlideActivity.class);
+                                    intent.putExtra("usuario", usuario);
                                     intent.putExtra("nombre", nombre);
                                     startActivity(intent);
                                 }
@@ -83,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        thread.start();
+        if (thread.isAlive()) {
+            thread.interrupt();
+        } else {
+            thread.start();
+        }
     }
 }

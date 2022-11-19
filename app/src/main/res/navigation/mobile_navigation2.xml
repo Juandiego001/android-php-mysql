@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation2"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.app_biblioteca.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_infantiles"
+        android:name="com.example.app_biblioteca.InfantilesFragment"
+        android:label="Infantiles"
+        tools:layout="@layout/fragment_infantiles" />
+
+    <fragment
+        android:id="@+id/nav_superacion"
+        android:name="com.example.app_biblioteca.SuperacionFragment"
+        android:label="Superacion"
+        tools:layout="@layout/fragment_superacion" />
+
+    <fragment
+        android:id="@+id/nav_literatura"
+        android:name="com.example.app_biblioteca.LiteraturaFragment"
+        android:label="Literatura"
+        tools:layout="@layout/fragment_literatura" />
+
+    <fragment
+        android:id="@+id/nav_ebooks"
+        android:name="com.example.app_biblioteca.EbooksFragment"
+        android:label="Ebooks"
+        tools:layout="@layout/fragment_ebooks" />
+
+    <fragment
+        android:id="@+id/nav_colecciones"
+        android:name="com.example.app_biblioteca.ColeccionesFragment"
+        android:label="Colecciones"
+        tools:layout="@layout/fragment_colecciones" />
+
+    <fragment
+        android:id="@+id/nav_cientificos"
+        android:name="com.example.app_biblioteca.CientificosFragment"
+        android:label="Cientificos"
+        tools:layout="@layout/fragment_cientificos" />
+
+    <fragment
+        android:id="@+id/nav_consulta"
+        android:name="com.example.app_biblioteca.ConsultaFragment"
+        android:label="Consulta"
+        tools:layout="@layout/fragment_consulta" />
+</navigation>

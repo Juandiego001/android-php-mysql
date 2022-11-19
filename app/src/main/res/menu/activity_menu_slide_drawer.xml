@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_infantiles"
+            android:icon="@drawable/ic_baseline_child_friendly_24"
+            android:title="Infantil" />
+        <item
+            android:id="@+id/nav_superacion"
+            android:icon="@drawable/ic_baseline_diamond_24"
+            android:title="Superacion" />
+        <item
+            android:id="@+id/nav_cientificos"
+            android:icon="@drawable/ic_baseline_science_24"
+            android:title="Cientifícos" />
+        <item
+            android:id="@+id/nav_literatura"
+            android:icon="@drawable/ic_baseline_book_24"
+            android:title="Literatura" />
+        <item
+            android:id="@+id/nav_colecciones"
+            android:icon="@drawable/ic_baseline_collections_bookmark_24"
+            android:title="Colecciones" />
+        <item
+            android:id="@+id/nav_ebooks"
+            android:icon="@drawable/ic_baseline_book_online_24"
+            android:title="Ebooks" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_baseline_logout_24"
+            android:title="Log out" />
+        <item
+            android:id="@+id/nav_consulta"
+            android:icon="@drawable/ic_baseline_search_24"
+            android:title="Consulta" />
+    </group>
+</menu>
